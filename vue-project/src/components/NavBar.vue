@@ -3,7 +3,7 @@ import { ref, reactive, watch, onMounted } from 'vue'
 import { api } from "@/services/api.service";
 import Modal from '@/components/Modal.vue'
 
-const show = ref(!false)
+const show = ref(false)
 const error = ref(null)
 
 const formData = ref({
@@ -12,11 +12,11 @@ const formData = ref({
 })
 
 function toSubmit() {
-    // console.log(formData.value)
-    api.login(formData.value)
-        .catch((err) => {
-            error.value = err
-        })
+    try {
+        api.login(formData.value)
+    } catch (error) {
+        error.value = err 
+    }
 }
 
 function login() {
@@ -37,11 +37,17 @@ function login() {
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <!-- <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">Клиент</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#">Вклады</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Кредиты</a>
+                    </li> -->
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Dropdown
@@ -60,7 +66,7 @@ function login() {
                     </li> -->
                 </ul>
                 <div class="d-flex" role="search">
-                    <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+                    <a href="http://localhost:8007/" class="btn btn-link">Админка</a>
                     <button class="btn btn-outline-success" @click="login">Логин</button>
                 </div>
             </div>

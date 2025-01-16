@@ -1,25 +1,37 @@
 from django.http import Http404
 from rest_framework import viewsets, permissions, views, status, renderers
 from rest_framework.response import Response
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from .serializers import CustomerSerializer, DepositSerializer, LoanSerializer
 from .models import Customer, Deposit, Loan
 
 
 class AuthLogin(views.APIView):
     # разрешения
-    permission_classes = [permissions.AllowAny]
+    # permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     # рендер вьюшки
     renderer_classes = [
         renderers.JSONRenderer,  # рендерим как json
     ]
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
 
     # Создае новый обьект
     def post(self, request):
-         return Response(
-                {'ok':True},  # данные ответ
-                status=status.HTTP_200_OK,  # статус ответа 200
-        )
+        
+        # username = request.POST.get('username')
+        # password = request.POST.get('password')
+
+        content = {
+            'user': str(request.user),  # `django.contrib.auth.User` instance.
+            'auth': str(request.auth),  # None
+        }
+        return Response(content)
+        # return Response(
+        #         {'ok':True},  # данные ответ
+        #         status=status.HTTP_200_OK,  # статус ответа 200
+        # )
         # # сериализуем
         # serializer = CustomerSerializer(
         #     data=request.data,  # данные из тела запроса

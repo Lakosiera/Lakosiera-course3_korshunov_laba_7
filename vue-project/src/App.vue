@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive, watch, onMounted } from 'vue'
-import Modal from './components/Modal.vue'
 import NavBar from './components/NavBar.vue'
+import Customers from './components/Customers.vue'
 
 
 function test() {
@@ -15,5 +15,10 @@ const show = ref(!false)
 <template>
 
 <NavBar/>
+
+<div class="container my-3">
+    <Customers/>
+
+</div>
 
 </template>
