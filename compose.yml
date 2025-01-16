@@ -33,7 +33,7 @@ services: # корневое имя параметра, в котором пер
     # command: npm i
     environment: 
       - CHOKIDAR_USEPOLLING=true
-      - BACKEND_URL=laba-7-django:8007
+      - BACKEND_URL=laba-7-django:8000
     ports:
         - "8087:5173"
     volumes:

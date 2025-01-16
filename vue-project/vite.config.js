@@ -23,7 +23,7 @@ export default ({ mode }) => {
           changeOrigin: true,
           secure: false,
           rewriteWsOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
+          // rewrite: (path) => path.replace(/^\/api/, ''),
         }
       }
     }

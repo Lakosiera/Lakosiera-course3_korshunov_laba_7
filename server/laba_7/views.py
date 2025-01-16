@@ -4,6 +4,42 @@ from rest_framework.response import Response
 from .serializers import CustomerSerializer, DepositSerializer, LoanSerializer
 from .models import Customer, Deposit, Loan
 
+
+class AuthLogin(views.APIView):
+    # разрешения
+    permission_classes = [permissions.AllowAny]
+    # рендер вьюшки
+    renderer_classes = [
+        renderers.JSONRenderer,  # рендерим как json
+    ]
+
+
+    # Создае новый обьект
+    def post(self, request):
+         return Response(
+                {'ok':True},  # данные ответ
+                status=status.HTTP_200_OK,  # статус ответа 200
+        )
+        # # сериализуем
+        # serializer = CustomerSerializer(
+        #     data=request.data,  # данные из тела запроса
+        # )
+        # # если данные верны
+        # if serializer.is_valid():
+        #     # сохраняем в базу данных
+        #     serializer.save()
+        #     # ответ
+        #     return Response(
+        #         serializer.data,  # данные ответ
+        #         status=status.HTTP_201_CREATED,  # статус ответа 201 - создано
+        #     )
+        # # в случае если данные не верны
+        # return Response(
+        #     serializer.errors,  # вотзвращаем ошибки
+        #     status=status.HTTP_400_BAD_REQUEST,  # статус ответа 400 - плохой запрос
+        # )
+
+
 # REST CRUD
 
 # клиенты

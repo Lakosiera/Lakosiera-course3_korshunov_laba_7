@@ -15,6 +15,9 @@ urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
+    
+    path('api/login/', views.AuthLogin.as_view()),
+
 # url для CRUD операция над клиентами
     path('api/customer/', views.CustomerList.as_view()),
     path('api/customer/<int:customer_id>/', views.CustomerDetail.as_view()),
