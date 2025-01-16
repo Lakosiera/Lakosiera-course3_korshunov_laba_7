@@ -20,6 +20,6 @@ from django.urls import include, path
 urlpatterns = [
     # админка проекта
     path('admin/', admin.site.urls),
-    # подключаем пути из модуля laba_6
-    path('', include("laba_6.urls")),
+    # подключаем пути из модуля laba_7
+    path('', include("laba_7.urls")),
 ]

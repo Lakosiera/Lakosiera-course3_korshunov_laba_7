@@ -78,7 +78,7 @@ docker compose down
 ```sh
 # зайти в комендную обалочку контенера
 docker exec -it container_name sh
-# docker exec -it laba-6-django sh
+# docker exec -it laba-7-django sh
 ```
 
 или
@@ -86,7 +86,7 @@ docker exec -it container_name sh
 ```sh
 # зайти в комендную обалочку контенера через композ
 docker compose exec service_name sh
-# docker compose exec laba-6-django sh
+# docker compose exec laba-7-django sh
 ```
 
 ## Настрока Django без Docker

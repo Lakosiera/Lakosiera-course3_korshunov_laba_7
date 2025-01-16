@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "laba_6.apps.Laba6Config", # модуль для Лаба №6
+    "laba_7.apps.Laba7Config", # модуль для Лаба №6
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -101,7 +101,7 @@ DATABASES = {
     'default': {
         # Настройка доступа к базе данных
         "ENGINE": "django.db.backends.postgresql", # драйвер Django
-        "HOST" : "laba-6-db", # имя берется из docker compose в поле контенера container_name
+        "HOST" : "laba-7-db", # имя берется из docker compose в поле контенера container_name
         "PORT": 5432,
         "NAME": "laba_6", # имя базы данных
         "USER": "django",

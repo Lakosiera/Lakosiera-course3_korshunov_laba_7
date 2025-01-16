@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
-from laba_6 import views
+from laba_7 import views
 
 
 # Стандартные пути сгенерированые Django REST API для просмотра данных
@@ -10,7 +10,7 @@ router.register(r'deposit', views.DepositViewSet)
 router.register(r'loan', views.LoanViewSet)
 
 
-# пути для модуля 'laba_6'
+# пути для модуля 'laba_7'
 urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
