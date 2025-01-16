@@ -103,7 +103,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql", # драйвер Django
         "HOST" : "laba-7-db", # имя берется из docker compose в поле контенера container_name
         "PORT": 5432,
-        "NAME": "laba_6", # имя базы данных
+        "NAME": "laba_7", # имя базы данных
         "USER": "django",
         "PASSWORD": "django",
     }

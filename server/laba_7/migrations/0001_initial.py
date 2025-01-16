@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('amount', models.IntegerField(help_text='Сумма', verbose_name='Сумма')),
-                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='laba_6.customer')),
+                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='laba_7.customer')),
             ],
         ),
         migrations.CreateModel(
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('purpose', models.CharField(help_text='Цель кредита', max_length=50, verbose_name='Цель кредита')),
                 ('submitted_on', models.DateField(help_text='Представлено', verbose_name='Представлено')),
                 ('disbursement_on', models.DateField(help_text='Выплата по', verbose_name='Выплата по')),
-                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='laba_6.customer')),
+                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='laba_7.customer')),
             ],
         ),
     ]
