@@ -32,7 +32,7 @@ function loanHide() {
 <NavBar @auth="auth=$event"/>
 
 <div class="container my-3" v-if="auth">
-    <AdminView :auth="auth" @onDeposit="deposit" @onLoan="loan"/>
+    <AdminView :auth="auth" @onDeposit="deposit" @onLoan="loan" v-if="depositeCustomer==null && loanCustomer==null"/>
     <Deposit :customer="depositeCustomer" @close="depositHide"/>
     <Loan :customer="loanCustomer" @close="loanHide"/>
 </div>
