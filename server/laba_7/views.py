@@ -1,60 +1,50 @@
 from django.http import Http404
 from rest_framework import viewsets, permissions, views, status, renderers
 from rest_framework.response import Response
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import (
+    SessionAuthentication,
+    BasicAuthentication,
+    TokenAuthentication,
+)
+from rest_framework.authtoken.models import Token
 from .serializers import CustomerSerializer, DepositSerializer, LoanSerializer
 from .models import Customer, Deposit, Loan
 
 
 class AuthLogin(views.APIView):
     # разрешения
-    # permission_classes = [permissions.AllowAny]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     # рендер вьюшки
     renderer_classes = [
         renderers.JSONRenderer,  # рендерим как json
     ]
-    authentication_classes = [BasicAuthentication]
 
+    def get(self, request):
+        auth = BasicAuthentication().authenticate(request)
+        if auth is None:
+            return Response(
+                {'detail': 'no user found'},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
 
-    # Создае новый обьект
-    def post(self, request):
-        
-        # username = request.POST.get('username')
-        # password = request.POST.get('password')
+        tokens = Token.objects.get_or_create(user=auth[0])
+        if not tokens:
+            return Response(
+                {'detail': 'tokens creation fail'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
         content = {
-            'user': str(request.user),  # `django.contrib.auth.User` instance.
-            'auth': str(request.auth),  # None
+            'user': str(auth[0]),
+            'token': str(tokens[0]),
         }
         return Response(content)
-        # return Response(
-        #         {'ok':True},  # данные ответ
-        #         status=status.HTTP_200_OK,  # статус ответа 200
-        # )
-        # # сериализуем
-        # serializer = CustomerSerializer(
-        #     data=request.data,  # данные из тела запроса
-        # )
-        # # если данные верны
-        # if serializer.is_valid():
-        #     # сохраняем в базу данных
-        #     serializer.save()
-        #     # ответ
-        #     return Response(
-        #         serializer.data,  # данные ответ
-        #         status=status.HTTP_201_CREATED,  # статус ответа 201 - создано
-        #     )
-        # # в случае если данные не верны
-        # return Response(
-        #     serializer.errors,  # вотзвращаем ошибки
-        #     status=status.HTTP_400_BAD_REQUEST,  # статус ответа 400 - плохой запрос
-        # )
 
 
 # REST CRUD
 
 # клиенты
+
 
 class CustomerList(views.APIView):
     # разрешения
@@ -63,7 +53,7 @@ class CustomerList(views.APIView):
     renderer_classes = [
         renderers.JSONRenderer,  # рендерим как json
     ]
-    authentication_classes = [SessionAuthentication]
+    # authentication_classes = [SessionAuthentication, TokenAuthentication]
 
     # Читаем все объекты
     def get(self, request):
@@ -159,7 +149,9 @@ class CustomerDetail(views.APIView):
             status=status.HTTP_204_NO_CONTENT,  # статус ответа 204 - нет данных для отображения
         )
 
+
 # вклады
+
 
 class DepositList(views.APIView):
     # разрешения
@@ -204,7 +196,7 @@ class DepositList(views.APIView):
         if serializer.is_valid():
             # сохраняем в базу данных
             serializer.save(
-                customer=customer, # устанавливаем значение клиента принудительно
+                customer=customer,  # устанавливаем значение клиента принудительно
             )
             # ответ
             return Response(
@@ -288,7 +280,9 @@ class DepositDetail(views.APIView):
             status=status.HTTP_204_NO_CONTENT,  # статус ответа 204 - нет данных для отображения
         )
 
+
 # займы
+
 
 class LoanList(views.APIView):
     # разрешения
@@ -333,7 +327,7 @@ class LoanList(views.APIView):
         if serializer.is_valid():
             # сохраняем в базу данных
             serializer.save(
-                customer=customer, # устанавливаем значение клиента принудительно
+                customer=customer,  # устанавливаем значение клиента принудительно
             )
             # ответ
             return Response(
@@ -345,6 +339,7 @@ class LoanList(views.APIView):
             serializer.errors,  # вотзвращаем ошибки
             status=status.HTTP_400_BAD_REQUEST,  # статус ответа 400 - плохой запрос
         )
+
 
 class LoanDetail(views.APIView):
     # разрешения

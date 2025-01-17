@@ -26,6 +26,7 @@ paths: # все URI для запростов
       description: Вернет JSON список всех клиентов
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       responses:
         200: # успешно
@@ -56,6 +57,7 @@ paths: # все URI для запростов
       description: Создаст клиента
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       requestBody: # тело запроса
         description:  Данные нового клиента в *JSON* формате
@@ -82,6 +84,7 @@ paths: # все URI для запростов
       description: Вернет JSON клиента по id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: id # имя параметра
@@ -106,6 +109,7 @@ paths: # все URI для запростов
       description: Обновить указаные поля в JSON данных клиента по id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: id # имя параметра
@@ -137,6 +141,7 @@ paths: # все URI для запростов
       description: Удалит клиента по id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: id # имя параметра
@@ -159,6 +164,7 @@ paths: # все URI для запростов
       description: Вернет JSON список всех вкладов клиента
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
@@ -192,6 +198,7 @@ paths: # все URI для запростов
       description: Создаст вклад клиента
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
@@ -226,6 +233,7 @@ paths: # все URI для запростов
       description: Вернет JSON вклада по id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
@@ -257,6 +265,7 @@ paths: # все URI для запростов
       description: Обновить указаные поля в JSON данных вклада клиента по id и customer_id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
@@ -295,6 +304,7 @@ paths: # все URI для запростов
       description: Удалит вклад клиента по id и customer_id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
@@ -325,6 +335,7 @@ paths: # все URI для запростов
       description: Вернет JSON список всех займов клиента
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
@@ -358,6 +369,7 @@ paths: # все URI для запростов
       description: Создаст займ клиента
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
@@ -392,6 +404,7 @@ paths: # все URI для запростов
       description: Вернет JSON займа по id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
@@ -423,6 +436,7 @@ paths: # все URI для запростов
       description: Обновить указаные поля в JSON данных займа клиента по id и customer_id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
@@ -461,6 +475,7 @@ paths: # все URI для запростов
       description: Удалит вклад клиента по id и customer_id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - TokenAuth: [] # тип авторизации
         - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
@@ -490,6 +505,9 @@ components:
     BasicAuth: # базовая авторизация
       type: http
       scheme: basic
+    TokenAuth: # базовая авторизация
+      type: http
+      scheme: token
     CSRFToken:
       type: apiKey
       in: header

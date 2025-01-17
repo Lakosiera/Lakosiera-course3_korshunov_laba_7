@@ -3,23 +3,22 @@ import { cookie } from "@/utils/cookie";
 export const api = { login, customers }
 
 const API_URL = "/api"
-const COOKIE_AUTH_KEY = 'auth_token'
-const COOKIE_SESSIONID_KEY = 'sessionid'
+const COOKIE_TOKEN_KEY = 'token'
 
 async function login({username, password}) {
     const basic = btoa(`${username}:${password}`)
     let response = await fetch(`${API_URL}/login/`, {
-        method: "POST",
+        method: "GET",
         headers: {
             'Content-Type': 'application/json;charset=UTF-8',
             'Authorization': `Basic ${basic}`,
         },
     })
 
-    if (response.status == 200) {
-        cookie.set(COOKIE_AUTH_KEY, basic)
-    }
     let json = await response.json()
+    if (response.status == 200) {
+        cookie.set(COOKIE_TOKEN_KEY, json.token)
+    }
 
     return json
 }
@@ -29,7 +28,8 @@ async function customers() {
         method: "GET",
         headers: {
             'Content-Type': 'application/json;charset=UTF-8',
-            'X-CSRFToken': cookie.get('csrftoken'),
+            'Authorization': `Token ${cookie.get(COOKIE_TOKEN_KEY)}`,
+            // 'X-CSRFToken': cookie.get('csrftoken'),
             // 'cookie': `COOKIE_SESSIONID_KEY=${cookie.get('COOKIE_SESSIONID_KEY')}`,
         },
         // body: JSON.stringify({username, password})

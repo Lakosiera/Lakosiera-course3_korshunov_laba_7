@@ -15,8 +15,7 @@ function toSubmit() {
     try {
         api.login(formData.value)
             .then((data) => {
-                login()
-                console.log(data)
+                show.value = false
             })
     } catch (error) {
         error.value = err
