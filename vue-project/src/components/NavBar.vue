@@ -3,6 +3,7 @@ import { ref, reactive, watch, onMounted } from 'vue'
 import { api } from "@/services/api.service";
 import Modal from '@/components/Modal.vue'
 
+const token = ref(null)
 const show = ref(false)
 const error = ref(null)
 
@@ -11,19 +12,30 @@ const formData = ref({
     password: "admin",
 })
 
+onMounted(() => {
+    token.value = api.getToken()
+})
+
 function toSubmit() {
     try {
         api.login(formData.value)
-            .then((data) => {
+            .then((value) => {
+                token.value = value
                 show.value = false
             })
-    } catch (error) {
+    } catch (err) {
+        token.value = null
         error.value = err
     }
 }
 
 function login() {
     show.value = !show.value
+}
+
+function logout() {
+    api.logout()
+    token.value = null
 }
 </script>
 
@@ -70,14 +82,14 @@ function login() {
                 </ul>
                 <div class="d-flex" role="search">
                     <a href="http://localhost:8007/admin/" class="btn btn-link">Админка</a>
-                    <button class="btn btn-outline-success" @click="login">Вход</button>
+                    <button v-if="!token" class="btn btn-outline-success" @click="login">Вход</button>
+                    <button v-if="token" class="btn btn-outline-success" @click="logout">Выход</button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- <div  v-if="show" class=""> -->
-        <Modal @on-close="show = false" :show="show">
+    <Modal @on-close="show=false" :show="show">
         <form @submit.prevent="toSubmit">
             <div class="mb-3">
                 <input placeholder="Логин" type="text" class="form-control" name="username"
@@ -95,6 +107,5 @@ function login() {
             {{ error }}
         </div>
     </Modal>
-    <!-- </div> -->
     
 </template>

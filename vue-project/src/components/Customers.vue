@@ -23,7 +23,7 @@ function getData() {
 </script>
 
 <template>
-    <div class="card shadow">
+    <div class="card shadow" v-if="customers.length > 0">
         <div class="card-body">
             <h5 class="card-title">Клиены</h5>
 

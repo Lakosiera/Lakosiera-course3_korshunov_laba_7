@@ -1,6 +1,6 @@
 import { cookie } from "@/utils/cookie";
 
-export const api = { login, customers }
+export const api = { login, logout, customers, getToken }
 
 const API_URL = "/api"
 const COOKIE_TOKEN_KEY = 'token'
@@ -18,9 +18,14 @@ async function login({username, password}) {
     let json = await response.json()
     if (response.status == 200) {
         cookie.set(COOKIE_TOKEN_KEY, json.token)
+        return json.token || null
     }
 
-    return json
+    return null
+}
+
+function logout() {
+    cookie.remove(COOKIE_TOKEN_KEY)
 }
 
 async function customers() {
@@ -37,4 +42,8 @@ async function customers() {
 
     let json = await response.json()
     return json
+}
+
+function getToken() {
+    return cookie.get(COOKIE_TOKEN_KEY) || null
 }

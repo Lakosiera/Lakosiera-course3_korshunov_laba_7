@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="js">
 import { ref, reactive, watch, onMounted } from 'vue'
 
 const props = defineProps({
@@ -26,8 +26,10 @@ onMounted(() => {
 watch(
   () => props.show,
   (newValue) => {
-    if (newValue) {
-        onShow()
+    if (newValue == true) {
+      onShow()
+    } else {
+      onHide()
     }
   }
 )
@@ -38,6 +40,9 @@ function onClose() {
 
 function onShow() {
     modalBS.value.show()
+}
+function onHide() {
+    modalBS.value.toggle()
 }
 </script>
 

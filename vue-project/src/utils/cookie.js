@@ -1,4 +1,4 @@
-export const cookie = { get, set }
+export const cookie = { get, set, remove }
 
 function get(key, defValue = null) {
     return document.cookie
@@ -11,4 +11,8 @@ function get(key, defValue = null) {
 // сохраняем куки
 function set(key, value) {
     document.cookie = `${key}=${value}`
+}
+
+function remove(key) {
+    set(key, "")
 }
