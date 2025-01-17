@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="js">
 import { ref, reactive, watch, onMounted } from 'vue'
 import NavBar from './components/NavBar.vue'
 import Customers from './components/Customers.vue'
@@ -10,14 +10,17 @@ function test() {
 }
 
 const show = ref(!false)
+const auth = ref(false)
+
+
 </script>
 
 <template>
 
-<NavBar/>
+<NavBar @auth="auth=$event"/>
 
 <div class="container my-3">
-    <Customers/>
+    <Customers :auth="auth"/>
 </div>
 
 </template>

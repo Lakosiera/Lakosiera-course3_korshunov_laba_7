@@ -15,13 +15,13 @@ async function login({username, password}) {
         },
     })
 
-    let json = await response.json()
-    if (response.status == 200) {
-        cookie.set(COOKIE_TOKEN_KEY, json.token)
-        return json.token || null
+    if (response.status != 200) {
+        return null
     }
 
-    return null
+    let json = await response.json()
+    cookie.set(COOKIE_TOKEN_KEY, json.token)
+    return json.token || null
 }
 
 function logout() {
@@ -34,8 +34,6 @@ async function customers() {
         headers: {
             'Content-Type': 'application/json;charset=UTF-8',
             'Authorization': `Token ${cookie.get(COOKIE_TOKEN_KEY)}`,
-            // 'X-CSRFToken': cookie.get('csrftoken'),
-            // 'cookie': `COOKIE_SESSIONID_KEY=${cookie.get('COOKIE_SESSIONID_KEY')}`,
         },
         // body: JSON.stringify({username, password})
     })
@@ -45,5 +43,8 @@ async function customers() {
 }
 
 function getToken() {
-    return cookie.get(COOKIE_TOKEN_KEY) || null
+    const token = cookie.get(COOKIE_TOKEN_KEY)
+    if (!token) return null
+    if (token.lenght == 0) return null
+    return token
 }
