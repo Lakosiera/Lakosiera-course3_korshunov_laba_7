@@ -1,11 +1,17 @@
 import { cookie } from "@/utils/cookie";
 
-export const api = { login, logout, customers, getToken, guestData }
+export const api = {
+    login, logout,
+    customers,
+    getToken, guestData,
+    depositsList, depositCreate, depositRead, depositUpdate, depositDelete,
+    loansList, loanCreate, loanRead, loanUpdate, loanDelete,
+}
 
 const API_URL = "/api"
 const COOKIE_TOKEN_KEY = 'token'
 
-async function login({username, password}) {
+async function login({ username, password }) {
     const basic = btoa(`${username}:${password}`)
     let response = await fetch(`${API_URL}/login/`, {
         method: "GET",
@@ -35,7 +41,6 @@ async function customers() {
             'Content-Type': 'application/json;charset=UTF-8',
             'Authorization': `Token ${cookie.get(COOKIE_TOKEN_KEY)}`,
         },
-        // body: JSON.stringify({username, password})
     })
 
     let json = await response.json()
@@ -59,4 +64,135 @@ async function guestData() {
 
     let json = await response.json()
     return json
+}
+
+// Депозиты
+async function depositsList(customerId) {
+    let response = await fetch(`${API_URL}/customer/${customerId}/deposit/`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Token ${cookie.get(COOKIE_TOKEN_KEY)}`,
+        },
+    })
+
+    let json = await response.json()
+    return json
+}
+
+async function depositCreate(customerId, data) {
+    let response = await fetch(`${API_URL}/customer/${customerId}/deposit/`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Token ${cookie.get(COOKIE_TOKEN_KEY)}`,
+        },
+        body: JSON.stringify(data)
+    })
+
+    let json = await response.json()
+    return json
+}
+
+async function depositRead(customerId) {
+    let response = await fetch(`${API_URL}/customer/${customerId}/deposit/`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Token ${cookie.get(COOKIE_TOKEN_KEY)}`,
+        },
+    })
+
+    let json = await response.json()
+    return json
+}
+
+async function depositUpdate(customerId, data) {
+    let response = await fetch(`${API_URL}/customer/${customerId}/deposit/${depositId}/`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Token ${cookie.get(COOKIE_TOKEN_KEY)}`,
+        },
+        body: JSON.stringify(data)
+    })
+
+    let json = await response.json()
+    return json
+}
+
+async function depositDelete(customerId, depositId) {
+    await fetch(`${API_URL}/customer/${customerId}/deposit/${depositId}/`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Token ${cookie.get(COOKIE_TOKEN_KEY)}`,
+        },
+    })
+}
+
+
+// Займы
+async function loansList(customerId) {
+    let response = await fetch(`${API_URL}/customer/${customerId}/deposit/`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Token ${cookie.get(COOKIE_TOKEN_KEY)}`,
+        },
+    })
+
+    let json = await response.json()
+    return json
+}
+
+async function loanCreate(customerId, data) {
+    let response = await fetch(`${API_URL}/customer/${customerId}/loan/`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Token ${cookie.get(COOKIE_TOKEN_KEY)}`,
+        },
+        body: JSON.stringify(data)
+    })
+
+    let json = await response.json()
+    return json
+}
+
+async function loanRead(customerId) {
+    let response = await fetch(`${API_URL}/customer/${customerId}/loan/`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Token ${cookie.get(COOKIE_TOKEN_KEY)}`,
+        },
+    })
+
+    let json = await response.json()
+    return json
+}
+
+async function loanUpdate(customerId, loanId, data) {
+    let response = await fetch(`${API_URL}/customer/${customerId}/loan/${loanId}/`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Token ${cookie.get(COOKIE_TOKEN_KEY)}`,
+        },
+        body: JSON.stringify(data)
+    })
+
+    let json = await response.json()
+    return json
+}
+
+async function loanDelete(customerId, loanId) {
+    await fetch(`${API_URL}/customer/${customerId}/loan/${loanId}/`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': `Token ${cookie.get(COOKIE_TOKEN_KEY)}`,
+        },
+    })
 }

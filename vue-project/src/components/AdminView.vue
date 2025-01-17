@@ -37,6 +37,10 @@ async function getData() {
     }
 }
 
+function refresh() {
+    getData()
+}
+
 function filter(value) {
     const filter = value.toLowerCase()
     customers.value = customersData.value.filter((c) => {
@@ -53,12 +57,20 @@ function deposit(customer) {
 function loan(customer) {
     emit('onLoan', customer)
 }
+
 </script>
 
 <template>
     <div class="card shadow mb-3">
         <div class="card-body">
-            <h5 class="card-title">Клиены</h5>
+            <h5 class="card-title">
+                <div class="row">
+                    <div class="col">Клиены</div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-dark btn-sm" aria-label="Close" @click="refresh">🔄</button>
+                    </div>
+                </div>
+            </h5>
 
             <div class="input-group mb-3">
                 <span class="input-group-text">🔍</span>

@@ -1,7 +1,7 @@
 from django.http import Http404
 from rest_framework import viewsets, permissions, views, status, renderers
 from rest_framework.response import Response
-from rest_framework.authentication import BasicAuthentication
+from rest_framework.authentication import BasicAuthentication, TokenAuthentication
 from rest_framework.authtoken.models import Token
 from .serializers import CustomerSerializer, DepositSerializer, LoanSerializer
 from .models import Customer, Deposit, Loan
@@ -71,6 +71,7 @@ class CustomerList(views.APIView):
     renderer_classes = [
         renderers.JSONRenderer,  # рендерим как json
     ]
+    authentication_classes = [TokenAuthentication]
 
     # Читаем все объекты
     def get(self, request):
@@ -113,6 +114,7 @@ class CustomerDetail(views.APIView):
     renderer_classes = [
         renderers.JSONRenderer,  # рендерим как json
     ]
+    authentication_classes = [TokenAuthentication]
 
     # утилитарный метод получения объекта по id
     def _get_object(self, customer_id):
@@ -177,6 +179,7 @@ class DepositList(views.APIView):
     renderer_classes = [
         renderers.JSONRenderer,  # рендерим как json
     ]
+    authentication_classes = [TokenAuthentication]
 
     # утилитарный метод получения объекта по id
     def _get_customer(self, customer_id):
@@ -234,6 +237,7 @@ class DepositDetail(views.APIView):
     renderer_classes = [
         renderers.JSONRenderer,  # рендерим как json
     ]
+    authentication_classes = [TokenAuthentication]
 
     # утилитарный метод получения объекта по id
     def _get_customer(self, customer_id):
@@ -308,6 +312,7 @@ class LoanList(views.APIView):
     renderer_classes = [
         renderers.JSONRenderer,  # рендерим как json
     ]
+    authentication_classes = [TokenAuthentication]
 
     # утилитарный метод получения объекта по id
     def _get_customer(self, customer_id):
@@ -365,6 +370,7 @@ class LoanDetail(views.APIView):
     renderer_classes = [
         renderers.JSONRenderer,  # рендерим как json
     ]
+    authentication_classes = [TokenAuthentication]
 
     # утилитарный метод получения объекта по id
     def _get_customer(self, customer_id):
