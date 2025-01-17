@@ -14,8 +14,12 @@ const formData = ref({
 function toSubmit() {
     try {
         api.login(formData.value)
+            .then((data) => {
+                login()
+                console.log(data)
+            })
     } catch (error) {
-        error.value = err 
+        error.value = err
     }
 }
 
@@ -66,14 +70,15 @@ function login() {
                     </li> -->
                 </ul>
                 <div class="d-flex" role="search">
-                    <a href="http://localhost:8007/" class="btn btn-link">Админка</a>
-                    <button class="btn btn-outline-success" @click="login">Логин</button>
+                    <a href="http://localhost:8007/admin/" class="btn btn-link">Админка</a>
+                    <button class="btn btn-outline-success" @click="login">Вход</button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <Modal @on-close="show = false" :show="show">
+    <!-- <div  v-if="show" class=""> -->
+        <Modal @on-close="show = false" :show="show">
         <form @submit.prevent="toSubmit">
             <div class="mb-3">
                 <input placeholder="Логин" type="text" class="form-control" name="username"
@@ -91,4 +96,6 @@ function login() {
             {{ error }}
         </div>
     </Modal>
+    <!-- </div> -->
+    
 </template>

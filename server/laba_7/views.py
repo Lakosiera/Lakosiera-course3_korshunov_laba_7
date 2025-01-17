@@ -14,7 +14,7 @@ class AuthLogin(views.APIView):
     renderer_classes = [
         renderers.JSONRenderer,  # рендерим как json
     ]
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = [BasicAuthentication]
 
 
     # Создае новый обьект
@@ -63,6 +63,7 @@ class CustomerList(views.APIView):
     renderer_classes = [
         renderers.JSONRenderer,  # рендерим как json
     ]
+    authentication_classes = [SessionAuthentication]
 
     # Читаем все объекты
     def get(self, request):

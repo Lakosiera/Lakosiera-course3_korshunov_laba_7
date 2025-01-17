@@ -51,10 +51,13 @@ REST_FRAMEWORK = {
     
     'DEFAULT_AUTHENTICATION_CLASSES': [
         # класс авторизации
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ]
 }
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8087",
+]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8017",

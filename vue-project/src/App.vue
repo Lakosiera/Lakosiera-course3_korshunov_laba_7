@@ -18,7 +18,6 @@ const show = ref(!false)
 
 <div class="container my-3">
     <Customers/>
-
 </div>
 
 </template>

@@ -26,9 +26,15 @@ paths: # все URI для запростов
       description: Вернет JSON список всех клиентов
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       responses:
         200: # успешно
           description: JSON список клиентов
+          headers: 
+            Set-Cookie:
+              schema: 
+                type: string
+                example: csrftoken=StELsz3WEnWHUTL4Q45U0X7f4MmKKB09
           content: # контекст ответа
             application/json: # тип передаваемых данных
               schema: # схема / структура передаваемых данных
@@ -50,6 +56,7 @@ paths: # все URI для запростов
       description: Создаст клиента
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       requestBody: # тело запроса
         description:  Данные нового клиента в *JSON* формате
         required: true # поле обязательно
@@ -75,6 +82,7 @@ paths: # все URI для запростов
       description: Вернет JSON клиента по id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: id # имя параметра
           in: path # параметр часть URL
@@ -98,6 +106,7 @@ paths: # все URI для запростов
       description: Обновить указаные поля в JSON данных клиента по id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: id # имя параметра
           in: path # параметр часть URL
@@ -128,6 +137,7 @@ paths: # все URI для запростов
       description: Удалит клиента по id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: id # имя параметра
           in: path # параметр часть URL
@@ -149,6 +159,7 @@ paths: # все URI для запростов
       description: Вернет JSON список всех вкладов клиента
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
           in: path # параметр часть URL
@@ -181,6 +192,7 @@ paths: # все URI для запростов
       description: Создаст вклад клиента
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
           in: path # параметр часть URL
@@ -214,6 +226,7 @@ paths: # все URI для запростов
       description: Вернет JSON вклада по id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
           in: path # параметр часть URL
@@ -244,6 +257,7 @@ paths: # все URI для запростов
       description: Обновить указаные поля в JSON данных вклада клиента по id и customer_id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
           in: path # параметр часть URL
@@ -281,6 +295,7 @@ paths: # все URI для запростов
       description: Удалит вклад клиента по id и customer_id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
           in: path # параметр часть URL
@@ -310,6 +325,7 @@ paths: # все URI для запростов
       description: Вернет JSON список всех займов клиента
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
           in: path # параметр часть URL
@@ -342,6 +358,7 @@ paths: # все URI для запростов
       description: Создаст займ клиента
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
           in: path # параметр часть URL
@@ -375,6 +392,7 @@ paths: # все URI для запростов
       description: Вернет JSON займа по id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
           in: path # параметр часть URL
@@ -405,6 +423,7 @@ paths: # все URI для запростов
       description: Обновить указаные поля в JSON данных займа клиента по id и customer_id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
           in: path # параметр часть URL
@@ -442,6 +461,7 @@ paths: # все URI для запростов
       description: Удалит вклад клиента по id и customer_id
       security: # указываем что запрос требует авторизации
         - BasicAuth: [] # тип авторизации
+        - CSRFToken: [] # тип авторизации
       parameters: # параметры запроса
         - name: customer_id # имя параметра
           in: path # параметр часть URL
@@ -470,6 +490,10 @@ components:
     BasicAuth: # базовая авторизация
       type: http
       scheme: basic
+    CSRFToken:
+      type: apiKey
+      in: header
+      name: X-CSRFToken
 
   schemas: # структуры данных объектов
     Customer: # Клинет
