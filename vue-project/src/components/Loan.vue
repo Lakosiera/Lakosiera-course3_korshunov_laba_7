@@ -118,7 +118,7 @@ async function removeLoan(loanId) {
                     </div>
                     <div class="col-12">
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Заняить</button>
+                            <button type="submit" class="btn btn-warning">Заняить</button>
                         </div>
                     </div>
                 </div> 

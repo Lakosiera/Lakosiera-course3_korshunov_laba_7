@@ -83,7 +83,7 @@ async function removeDeposit(depositId) {
                         </div>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary">Положить</button>
+                        <button type="submit" class="btn btn-success">Положить</button>
                     </div>
                 </div> 
             </form>

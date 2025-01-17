@@ -59,7 +59,7 @@ function logout() {
                     </li> -->
                 </ul>
                 <div class="d-flex" role="search">
-                    <a href="http://localhost:8007/admin/" class="btn btn-link">Админка</a>
+                    <a href="http://localhost:8007/admin/" class="btn btn-link">Django Админка</a>
                     <button v-if="!token" class="btn btn-outline-success" @click="login">Вход</button>
                     <button v-if="token" class="btn btn-outline-success" @click="logout">Выход</button>
                 </div>
