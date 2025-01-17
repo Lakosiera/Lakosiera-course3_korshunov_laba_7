@@ -16,6 +16,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     
+    path('api/guest/', views.GuestData.as_view()),
+    
     path('api/login/', views.AuthLogin.as_view()),
 
 # url для CRUD операция над клиентами

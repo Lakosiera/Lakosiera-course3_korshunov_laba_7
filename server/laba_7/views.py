@@ -1,11 +1,7 @@
 from django.http import Http404
 from rest_framework import viewsets, permissions, views, status, renderers
 from rest_framework.response import Response
-from rest_framework.authentication import (
-    SessionAuthentication,
-    BasicAuthentication,
-    TokenAuthentication,
-)
+from rest_framework.authentication import BasicAuthentication
 from rest_framework.authtoken.models import Token
 from .serializers import CustomerSerializer, DepositSerializer, LoanSerializer
 from .models import Customer, Deposit, Loan
@@ -23,29 +19,51 @@ class AuthLogin(views.APIView):
         auth = BasicAuthentication().authenticate(request)
         if auth is None:
             return Response(
-                {'detail': 'no user found'},
+                {"detail": "no user found"},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
 
         tokens = Token.objects.get_or_create(user=auth[0])
         if not tokens:
             return Response(
-                {'detail': 'tokens creation fail'},
+                {"detail": "tokens creation fail"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
         content = {
-            'user': str(auth[0]),
-            'token': str(tokens[0]),
+            "user": str(auth[0]),
+            "token": str(tokens[0]),
         }
         return Response(content)
 
+# гость
+class GuestData(views.APIView):
+    # разрешения
+    permission_classes = [permissions.AllowAny]
+    # рендер вьюшки
+    renderer_classes = [
+        renderers.JSONRenderer,  # рендерим как json
+    ]
+    # Читаем все объекты
+    def get(self, request):
+        # получаем все объекты из базы
+        customers = Customer.objects.count()
+        deposits = Deposit.objects.count()
+        loans = Loan.objects.count()
+
+        # вериализуем как список
+        content = {
+            'customers': customers,
+            'deposits': deposits,
+            'loans': loans,
+        }
+        # ответ
+        return Response(content)
+    
 
 # REST CRUD
 
 # клиенты
-
-
 class CustomerList(views.APIView):
     # разрешения
     permission_classes = [permissions.IsAuthenticated]
@@ -53,7 +71,6 @@ class CustomerList(views.APIView):
     renderer_classes = [
         renderers.JSONRenderer,  # рендерим как json
     ]
-    # authentication_classes = [SessionAuthentication, TokenAuthentication]
 
     # Читаем все объекты
     def get(self, request):

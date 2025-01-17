@@ -1,6 +1,6 @@
 import { cookie } from "@/utils/cookie";
 
-export const api = { login, logout, customers, getToken }
+export const api = { login, logout, customers, getToken, guestData }
 
 const API_URL = "/api"
 const COOKIE_TOKEN_KEY = 'token'
@@ -47,4 +47,16 @@ function getToken() {
     if (!token) return null
     if (token.lenght == 0) return null
     return token
+}
+
+async function guestData() {
+    let response = await fetch(`${API_URL}/guest/`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+        },
+    })
+
+    let json = await response.json()
+    return json
 }
